@@ -55,7 +55,6 @@ resource aws_security_group my_security_group {
 #EC2 instance
 
 resource aws_instance "my_instance" {
-<<<<<<< HEAD
 	#count = 3
 	for_each = tomap({
 		MK-micro = "t3.micro"
@@ -65,27 +64,15 @@ resource aws_instance "my_instance" {
 	key_name = aws_key_pair.my_key.key_name
 	security_groups = [aws_security_group.my_security_group.name]
 	instance_type = each.value
-=======
-	key_name = aws_key_pair.my_key.key_name
-	security_groups = [aws_security_group.my_security_group.name]
-	instance_type = var.ec2_instance_type
->>>>>>> 9895d7f2bedba8eb1266895b002e3b63e24704a0
 	ami = var.ec2_ami_id  #Ubuntu changed to Amazon Linux
 	user_data = file("${path.module}/install_nginx.sh")
 	
 	root_block_device {   #Storage
-<<<<<<< HEAD
 		volume_size = var.env == "prod" ? 20 : var.ec2_default_root_storage_size
 		volume_type = "gp3"
 	}
 	tags = {
 		Name = each.key
-=======
-		volume_size = var.ec2_root_storage_size
-		volume_type = "gp3"
-	}
-	tags = {
-		Name = "MK-Automate"
->>>>>>> 9895d7f2bedba8eb1266895b002e3b63e24704a0
+
 	}
 }
